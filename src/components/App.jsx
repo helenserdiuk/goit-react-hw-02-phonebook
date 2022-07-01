@@ -14,6 +14,7 @@ class App extends Component {
     ],
     filter: '',
   };
+
   addContact = newContact => {
     const { contacts } = this.state;
     const contactItem = {
@@ -33,6 +34,7 @@ class App extends Component {
       }));
     }
   };
+
   removeContact = id => {
     this.setState(({ contacts }) => {
       return {
@@ -40,18 +42,6 @@ class App extends Component {
       };
     });
   };
-
-  // filtercontact = () => {
-  //   const { filter, contacts } = this.state;
-  //   const filterLowerCase = filter.toLowerCase();
-
-  //   return contacts.filter(contact =>
-  //     contact.name.toLowerCase().includes(filterLowerCase)
-  //   );
-  // };
-  // changeFilter = e => {
-  //   this.setState({ filter: e.currentTarget.value });
-  // };
 
   handleFilter = ({ target }) => {
     this.setState({
@@ -73,16 +63,19 @@ class App extends Component {
   };
 
   render() {
+    const { addContact, handleFilter, getFilteredContact, removeContact } =
+      this;
+    const { filter } = this.state;
     return (
       <div>
         <h1>Phonebook</h1>
-        <ContactForm onSubmit={this.addContact} />
+        <ContactForm onSubmit={addContact} />
 
         <h2>Contacts</h2>
-        <Filter value={this.state.filter} onChange={this.handleFilter} />
+        <Filter value={filter} onChange={handleFilter} />
         <ContactList
-          contacts={this.getFilteredContact()}
-          removeContact={this.removeContact}
+          contacts={getFilteredContact()}
+          removeContact={removeContact}
         />
       </div>
     );
